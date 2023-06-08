@@ -70,7 +70,7 @@ function App() {
         let total_hours = document.getElementsByClassName('totalHoursBarInput')[0].value;
         let time_due = document.getElementsByClassName('timeDueBarInput')[0].value;
         let busy_hours = document.getElementsByClassName('busyHoursBarInput');
-        if ((total_hours.length != 0 || total_hours != '0') && time_due.length != 0){
+        if ((total_hours.length !== 0 || total_hours !== '0') && time_due.length !== 0){
         let list = [];
         let free_hours = [];
         let study_hours = []; 
@@ -80,7 +80,7 @@ function App() {
         let today_minutes = today.getMinutes();
         for (let i = 0; i < busy_hours.length; i++) {
             list.push(busy_hours[i].value);
-            if (i == 0) {
+            if (i === 0) {
                 let temp_value = 24 - (today_hours + (today_minutes / 0.6 / 100)) - list[list.length - 1];
                 if (temp_value > 0) {
                     free_hours.push(temp_value);
@@ -97,15 +97,11 @@ function App() {
         // checking if avg is more than any of the free time elements
            // if on some days there isnt enough free time we will add the study time to other days
            let leftover_time = 0;
-           // counter for days with leftover time
-           let counter = 0; 
            for (let i = 0; i < free_hours.length; i++) {
                 if (free_hours[i] >= avg_time) {
                     free_hours[i] = free_hours[i] - avg_time;
                     study_hours.push(avg_time);
-                    if (free_hours[i] != 0) {
-                        counter++;
-                    }
+
                 } else {
                     let temp = 0;
                     temp = avg_time - free_hours[i];

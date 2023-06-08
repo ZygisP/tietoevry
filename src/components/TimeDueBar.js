@@ -24,20 +24,6 @@ function TimeDueBar({ onChange }) {
         return [yyyy, mm, dd, hours, minutes, ms];
     } 
 
-    // expects array [yyyy, mm, dd, hours, minutes]
-    // we really only need ms to do everything else
-
-    const msToDays = (ms) => {
-        const days = Math.floor(ms / (24*60*60*1000));
-        const daysms = ms % (24*60*60*1000);
-        const hours = Math.floor(daysms / (60*60*1000));
-        const hoursms = ms % (60*60*1000);
-        const minutes = Math.floor(hoursms / (60*1000));
-        const minutesms = ms % (60*1000);
-        const sec = Math.floor(minutesms / 1000);
-        return [days, hours, minutes, sec];
-    }
-
     const getDatesInRange = (startDate, endDate) => {
         const date = new Date(startDate.getTime());
         const allDates = [];
@@ -50,9 +36,6 @@ function TimeDueBar({ onChange }) {
         return allDates;
     };
 
-    const TODAY = new Date();
-    const todayFormatted = formatDate(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate());
-
     const TOMMOROW = new Date();
     const tommorowFormatted = formatDate(TOMMOROW.getFullYear(), TOMMOROW.getMonth(), TOMMOROW.getDate() + 1);
 
@@ -63,7 +46,6 @@ function TimeDueBar({ onChange }) {
         // Time defaults based on the time zone, we want 0:00 though
         endDate[3] = 0;
         endDate[4] = 0;
-        let startDate = splitDate(new Date());
         let allDates = getDatesInRange(new Date(), new Date(event.target.value));
         setDays(event.target.value);
         onChange(allDates);
